@@ -2,16 +2,18 @@
 
 set -e
 
-/tools/download.sh
+# /tools/download.sh
 
-# https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
-kubeadm init phase control-plane all 
+# # https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
+# kubeadm init phase control-plane all 
 
-kubectl config set-context dev-shared
-kubectl config use-context dev-shared
+# kubectl config set-context dev-shared
+# kubectl config use-context dev-shared
 
-kubectl create cluster dev-shared
-kubectl config view 
+# kubectl config get-clusters
+
+# #kubectl create cluster dev-shared
+# kubectl config view 
 #kubectl config set-context --current --namespace=<namespace-name>
 
 # kubeadm init phase etcd local
@@ -21,7 +23,7 @@ kubectl config view
 
 #kubeadm init phase etcd local --config=configfile.yaml
 
-kubectl config set-context --current --namespace=<namespace-name>
+#kubectl config set-context --current --namespace=<namespace-name>
 
 
 tail -f /dev/null 

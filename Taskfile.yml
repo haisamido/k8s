@@ -14,11 +14,11 @@ env:
 
   DOCKER_GATEWAY_HOST: "192.168.65.254"
 
-  IMAGE_VERSION: '{{.IMAGE_VERSION | default "ubi8"}}'
+  IMAGE_VERSION: '{{.IMAGE_VERSION | default "k8s"}}'
 
 vars:
   REGISTRY: localhost:5005
-  IMAGE_NAME: rhel
+  IMAGE_NAME: k8s
   IMAGE_TAG: "{{.IMAGE_VERSION}}"
   IMAGE: "{{.IMAGE_NAME}}:{{.IMAGE_TAG}}"
   CONTAINER_NAME: "{{.IMAGE_NAME}}"
@@ -30,13 +30,13 @@ tasks:
       - task --list-all
 
   build:
-    desc: Build K8S
+    desc: Build k8S
     cmds:
       - |
         ${CONTAINER_BIN} build --file ./docker/Dockerfile --tag "{{.IMAGE}}" .
 
   start:
-    desc: Start RHEL
+    desc: Start k8s
     deps:
       - build
     cmds:
@@ -44,6 +44,7 @@ tasks:
         ignore_error: true
       - |
         ${CONTAINER_BIN} run -d --rm \
+          --privileged=true \
           --volume ${PWD}/downloads:/downloads \
           --volume ${PWD}/tools:/tools \
           --name {{.CONTAINER_NAME}} {{.IMAGE}}
