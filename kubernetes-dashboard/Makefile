@@ -22,7 +22,7 @@ repo-add:
 install: repo-add
 	helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 
-create-admin-user:
+create-admin-user: install
 	kubectl apply -n kubernetes-dashboard -f token.yaml || true
 
 generate-token: create-admin-user
